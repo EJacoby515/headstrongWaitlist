@@ -1,19 +1,20 @@
-/* HeadStrong Refined Styles
-   A sophisticated, modern design system with minimal gradients
-   and a professional color palette complementing the blue logo */
+/* HeadStrong Modern Therapy Aesthetic
+   A calming, sophisticated design system with sage green palette
+   designed for mental wellness and therapeutic environments */
 
 :root {
-  /* Core color palette based on the blue logo */
-  --primary: #0052cc;      /* Deep blue from logo */
-  --primary-dark: #003d99; /* Darker shade for contrast */
-  --secondary: #ebf2fa;    /* Light blue/gray for backgrounds */
-  --accent: #4c9aff;       /* Lighter blue for accents */
-  --neutral: #f5f7fa;      /* Nearly white for clean backgrounds */
-  --text-dark: #172b4d;    /* Dark blue-gray for primary text */
-  --text-medium: #42526e;  /* Medium slate for secondary text */
-  --text-light: #6b778c;   /* Light gray for tertiary text */
+  /* Modern therapy aesthetic color palette */
+  --primary: #7B9A8B;      /* Sage green - calming and healing */
+  --primary-dark: #5C7A6B; /* Darker sage for contrast */
+  --secondary: #F0F4F1;    /* Very light sage for backgrounds */
+  --accent: #A8C4B5;       /* Lighter sage for accents */
+  --warmth: #D4A574;       /* Gentle gold for highlights */
+  --neutral: #FDFCF8;      /* Warm off-white for clean backgrounds */
+  --text-dark: #3A3B3C;    /* Deep charcoal for primary text */
+  --text-medium: #5A5B5C;  /* Medium gray for secondary text */
+  --text-light: #8A8B8C;   /* Light gray for tertiary text */
   --white: #ffffff;
-  --box-shadow: 0 2px 12px rgba(0, 82, 204, 0.08);
+  --box-shadow: 0 2px 12px rgba(123, 154, 139, 0.12);
   --transition: all 0.3s ease;
 }
 
@@ -159,9 +160,9 @@ nav a:hover:after {
   background-color: var(--primary);
   color: var(--white);
   padding: 0.6rem 1.5rem;
-  border-radius: 4px;
+  border-radius: 6px;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(0, 82, 204, 0.25);
+  box-shadow: 0 2px 8px rgba(123, 154, 139, 0.25);
   transition: var(--transition);
 }
 
@@ -169,7 +170,7 @@ nav a:hover:after {
   background-color: var(--primary-dark);
   color: var(--white);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 82, 204, 0.35);
+  box-shadow: 0 4px 12px rgba(123, 154, 139, 0.35);
 }
 
 .cta-button:after {
@@ -204,7 +205,7 @@ section h2:after {
   position: absolute;
   width: 80px;
   height: 3px;
-  background-color: var(--accent);
+  background-color: var(--warmth);
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
@@ -248,13 +249,13 @@ section h2:after {
 
 .feature-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 8px 24px rgba(0, 82, 204, 0.15);
+  box-shadow: 0 8px 24px rgba(123, 154, 139, 0.15);
 }
 
 .feature-icon {
   font-size: 2.5rem;
   margin-bottom: 1.25rem;
-  color: var(--accent);
+  color: var(--warmth);
 }
 
 .feature-card h3 {
@@ -302,7 +303,7 @@ section h2:after {
 }
 
 .role {
-  color: var(--accent);
+  color: var(--warmth);
   font-weight: 600;
   margin-bottom: 1rem;
   font-size: 0.85rem;
@@ -349,38 +350,43 @@ section h2:after {
 .form-group {
   display: flex;
   gap: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.15);
   padding: 0.5rem;
-  border-radius: 4px;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
 }
 
 .waitlist-form input {
   flex: 1;
   padding: 0.75rem 1rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 1rem;
   color: var(--text-dark);
+  background-color: var(--white);
 }
 
 .waitlist-form input:focus {
-  outline: none;
+  outline: 2px solid var(--warmth);
+  outline-offset: -2px;
 }
 
 .waitlist-form button {
-  background-color: var(--white);
-  color: var(--primary);
+  background-color: var(--warmth);
+  color: var(--white);
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   padding: 0.75rem 1.5rem;
   font-weight: 600;
   font-size: 0.95rem;
   transition: var(--transition);
+  box-shadow: 0 2px 8px rgba(212, 165, 116, 0.3);
 }
 
 .waitlist-form button:hover {
-  background-color: var(--secondary);
+  background-color: #C89760;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 165, 116, 0.4);
 }
 
 /* Footer */
@@ -405,13 +411,13 @@ footer {
 }
 
 .footer-links a {
-  color: var(--secondary);
+  color: var(--accent);
   font-size: 0.9rem;
   transition: var(--transition);
 }
 
 .footer-links a:hover {
-  color: var(--white);
+  color: var(--warmth);
 }
 
 /* Responsive Design */
