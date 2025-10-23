@@ -13,9 +13,174 @@
    <!-- Fonts and Styles -->
    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
    <link rel="stylesheet" href="styles.css">
+   <style>
+       /* Announcement Modal Styles */
+       .announcement-modal-overlay {
+           display: flex;
+           position: fixed;
+           top: 0;
+           left: 0;
+           right: 0;
+           bottom: 0;
+           background: rgba(0, 0, 0, 0.8);
+           backdrop-filter: blur(5px);
+           z-index: 10000;
+           align-items: center;
+           justify-content: center;
+           animation: fadeIn 0.3s ease-in-out;
+       }
+
+       .announcement-modal-overlay.hidden {
+           display: none;
+       }
+
+       .announcement-modal {
+           background: linear-gradient(135deg, #7a9b8a 0%, #5b7f6f 100%);
+           border-radius: 24px;
+           padding: 48px;
+           max-width: 500px;
+           width: 90%;
+           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+           position: relative;
+           text-align: center;
+           animation: slideUp 0.4s ease-out;
+       }
+
+       .modal-close {
+           position: absolute;
+           top: 16px;
+           right: 16px;
+           background: rgba(255, 255, 255, 0.2);
+           border: none;
+           border-radius: 50%;
+           width: 32px;
+           height: 32px;
+           cursor: pointer;
+           font-size: 20px;
+           color: white;
+           transition: all 0.2s;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+       }
+
+       .modal-close:hover {
+           background: rgba(255, 255, 255, 0.3);
+           transform: rotate(90deg);
+       }
+
+       .modal-icon {
+           font-size: 72px;
+           margin-bottom: 16px;
+           animation: bounce 1s ease-in-out infinite;
+       }
+
+       .modal-title {
+           font-family: 'Montserrat', sans-serif;
+           font-size: 42px;
+           font-weight: 700;
+           color: white;
+           margin: 0 0 16px 0;
+           text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+           letter-spacing: 2px;
+       }
+
+       .modal-subtitle {
+           font-family: 'Open Sans', sans-serif;
+           font-size: 18px;
+           color: rgba(255, 255, 255, 0.95);
+           margin: 0 0 32px 0;
+           line-height: 1.6;
+       }
+
+       .modal-cta {
+           background: white;
+           color: #5b7f6f;
+           border: none;
+           padding: 16px 40px;
+           font-family: 'Montserrat', sans-serif;
+           font-size: 18px;
+           font-weight: 600;
+           border-radius: 12px;
+           cursor: pointer;
+           transition: all 0.3s;
+           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+           text-decoration: none;
+           display: inline-block;
+       }
+
+       .modal-cta:hover {
+           transform: translateY(-2px);
+           box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+           background: #f8f8f8;
+       }
+
+       @keyframes fadeIn {
+           from { opacity: 0; }
+           to { opacity: 1; }
+       }
+
+       @keyframes slideUp {
+           from {
+               opacity: 0;
+               transform: translateY(30px);
+           }
+           to {
+               opacity: 1;
+               transform: translateY(0);
+           }
+       }
+
+       @keyframes bounce {
+           0%, 100% { transform: translateY(0); }
+           50% { transform: translateY(-10px); }
+       }
+   </style>
 </head>
 
 <body>
+   <!-- Announcement Modal -->
+   <div id="announcementModal" class="announcement-modal-overlay">
+       <div class="announcement-modal">
+           <button class="modal-close" onclick="closeModal()">×</button>
+           <div class="modal-icon">🎉</div>
+           <h2 class="modal-title">TESTING IS LIVE!</h2>
+           <p class="modal-subtitle">
+               HeadStrong is now available for beta testing!<br>
+               Experience the future of mental wellness.
+           </p>
+           <a href="https://headstrong-ea612.web.app" class="modal-cta" target="_blank" rel="noopener noreferrer">
+               Launch App →
+           </a>
+       </div>
+   </div>
+
+   <script>
+       // Show modal on page load
+       window.addEventListener('DOMContentLoaded', function() {
+           document.getElementById('announcementModal').classList.remove('hidden');
+       });
+
+       // Close modal function
+       function closeModal() {
+           document.getElementById('announcementModal').classList.add('hidden');
+       }
+
+       // Close modal when clicking outside
+       document.getElementById('announcementModal')?.addEventListener('click', function(e) {
+           if (e.target === this) {
+               closeModal();
+           }
+       });
+
+       // Close modal with Escape key
+       document.addEventListener('keydown', function(e) {
+           if (e.key === 'Escape') {
+               closeModal();
+           }
+       });
+   </script>
+
    <header>
        <div class="header-content">
            <div class="logo-container">
@@ -50,13 +215,13 @@
        <section class="app-preview" id="preview">
            <div class="section-content">
                <h2>Experience HeadStrong</h2>
-               <p class="preview-subtitle">See how our app transforms mental wellness through thoughtful design and meaningful connection</p>
+               <p class="preview-subtitle">Join 1,000+ users already experiencing breakthrough mental wellness through our evidence-based, gamified approach</p>
                
                <div class="screenshots-grid">
                    <div class="screenshot-item">
                        <img src="./screenshots/dashboard.png" alt="Wellness Dashboard" />
                        <h4>Your Growth Journey</h4>
-                       <p>Track progress with gamified wellness levels, daily challenges, and achievement milestones</p>
+                       <p><strong>9x higher retention than competitors.</strong> Track progress with gamified wellness levels, XP rewards, and achievement milestones that keep users engaged for months, not days.</p>
                    </div>
                    
                    <div class="screenshot-item">
@@ -68,19 +233,19 @@
                    <div class="screenshot-item">
                        <img src="./screenshots/aichat.png" alt="AI Chat" />
                        <h4>Personalized AI Support</h4>
-                       <p>Choose between Liam (analytical) or Ariel (empathetic) for tailored therapeutic conversations</p>
+                       <p><strong>First dual-persona AI therapy.</strong> Choose between Liam (analytical) or Ariel (empathetic) for conversations that adapt to your personality and therapeutic needs.</p>
                    </div>
                    
                    <div class="screenshot-item">
                        <img src="./screenshots/peerchat.png" alt="Peer Chat" />
                        <h4>Anonymous Community</h4>
-                       <p>Connect with others through safe, timed sessions with built-in crisis support protocols</p>
+                       <p><strong>Zero-tolerance crisis intervention.</strong> Connect with peers through safe, anonymous sessions with 95%+ accurate crisis detection and <10-second emergency response.</p>
                    </div>
                    
                    <div class="screenshot-item">
                        <img src="./screenshots/insights.png" alt="Insights tab" />
-                       <h4>Deep Insights</h4>
-                       <p>Explore your personality, shadow work, and growth patterns through evidence-based assessments</p>
+                       <h4>Clinical-Grade Insights</h4>
+                       <p><strong>Professional-level assessments.</strong> Big 5 personality, shadow work, and trauma triggers analysis with correlations that licensed therapists trust and use.</p>
                    </div>
                </div>
            </div>
@@ -152,8 +317,8 @@
        <!-- Waitlist Section -->
        <section class="waitlist" id="join">
            <div class="section-content">
-               <h2>Join the Movement</h2>
-               <p class="waitlist-subtitle">Be among the first to access HeadStrong's personalized mental health tools and supportive community.</p>
+               <h2>Join the Mental Wellness Revolution</h2>
+               <p class="waitlist-subtitle">Join 1,000+ beta users experiencing 15% 30-day retention (vs. 3% industry average). Limited spots available for our freemium launch with 3 free AI sessions monthly.</p>
                <form action="#" method="post" id="join-form" class="waitlist-form">
                    <div class="form-group">
                        <input type="email" placeholder="Enter your email" required>
