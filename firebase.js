@@ -3,7 +3,7 @@ import { getFirestore, doc, setDoc } from 'https://www.gstatic.com/firebasejs/10
 
 
 const firebaseConfig = {
-    apiKey: import.meta.env.FIREBASE_API_KEY,
+    apiKey: "AIzaSyAkMXMgGZb6KF8Rl4dIPNDuG8nR13A6LQQ",
     authDomain: "headstrong-ea612.firebaseapp.com",
     projectId: "headstrong-ea612",
     storageBucket: "headstrong-ea612.appspot.com",
