@@ -31,3 +31,19 @@ export const addToWaitlist = async (email) => {
         throw error;
     }
 };
+
+export const addQuizLead = async (email, score, dimensions) => {
+    try {
+        await setDoc(doc(db, 'quizLeads', email), {
+            email,
+            score,
+            dimensions,
+            signupDate: new Date().toISOString(),
+            emailSent: false
+        });
+        return true;
+    } catch (error) {
+        console.error('error adding quiz lead', error);
+        throw error;
+    }
+};

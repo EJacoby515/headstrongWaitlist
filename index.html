@@ -467,8 +467,12 @@
       btn.disabled = true;
 
       try {
-        const { addToWaitlist } = await import('./firebase.js');
-        await addToWaitlist(email);
+        const { addQuizLead } = await import('./firebase.js');
+        const total = Object.values(answers).reduce((s, a) => s + a.score, 0);
+        const percentage = Math.round((total / (questions.length * 4)) * 100);
+        const scores = {};
+        Object.entries(answers).forEach(([id, a]) => { scores[a.dimension] = a.score; });
+        await addQuizLead(email, percentage, scores);
         document.getElementById('resultsGate').innerHTML = '<div class="gate-success"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg><p>Check your inbox! Your personalized action plan is on its way.</p></div>';
       } catch (err) {
         btn.textContent = 'Get My Action Plan';
