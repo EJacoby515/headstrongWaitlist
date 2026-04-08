@@ -1,370 +1,480 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>HeadStrong - Mental Health & Wellness</title>
-   <!-- Favicon -->
-   <link rel="icon" href="./public/favicon.ico" sizes="any">
-   <link rel="icon" type="image/png" href="./public/favicon-16x16.png" sizes="16x16">
-   <link rel="icon" type="image/png" href="./public/favicon-32x32.png" sizes="32x32">
-   <link rel="apple-touch-icon" href="./public/apple-touch-icon.png">
-   <link rel="manifest" href="./public/site.webmanifest">
-   <!-- Fonts and Styles -->
-   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="styles.css">
-   <style>
-       /* Announcement Modal Styles */
-       .announcement-modal-overlay {
-           display: flex;
-           position: fixed;
-           top: 0;
-           left: 0;
-           right: 0;
-           bottom: 0;
-           background: rgba(0, 0, 0, 0.8);
-           backdrop-filter: blur(5px);
-           z-index: 10000;
-           align-items: center;
-           justify-content: center;
-           animation: fadeIn 0.3s ease-in-out;
-       }
-
-       .announcement-modal-overlay.hidden {
-           display: none;
-       }
-
-       .announcement-modal {
-           background: linear-gradient(135deg, #7a9b8a 0%, #5b7f6f 100%);
-           border-radius: 24px;
-           padding: 48px;
-           max-width: 500px;
-           width: 90%;
-           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-           position: relative;
-           text-align: center;
-           animation: slideUp 0.4s ease-out;
-       }
-
-       .modal-close {
-           position: absolute;
-           top: 16px;
-           right: 16px;
-           background: rgba(255, 255, 255, 0.2);
-           border: none;
-           border-radius: 50%;
-           width: 32px;
-           height: 32px;
-           cursor: pointer;
-           font-size: 20px;
-           color: white;
-           transition: all 0.2s;
-           display: flex;
-           align-items: center;
-           justify-content: center;
-       }
-
-       .modal-close:hover {
-           background: rgba(255, 255, 255, 0.3);
-           transform: rotate(90deg);
-       }
-
-       .modal-icon {
-           font-size: 72px;
-           margin-bottom: 16px;
-           animation: bounce 1s ease-in-out infinite;
-       }
-
-       .modal-title {
-           font-family: 'Montserrat', sans-serif;
-           font-size: 42px;
-           font-weight: 700;
-           color: white;
-           margin: 0 0 16px 0;
-           text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-           letter-spacing: 2px;
-       }
-
-       .modal-subtitle {
-           font-family: 'Open Sans', sans-serif;
-           font-size: 18px;
-           color: rgba(255, 255, 255, 0.95);
-           margin: 0 0 32px 0;
-           line-height: 1.6;
-       }
-
-       .modal-cta {
-           background: white;
-           color: #5b7f6f;
-           border: none;
-           padding: 16px 40px;
-           font-family: 'Montserrat', sans-serif;
-           font-size: 18px;
-           font-weight: 600;
-           border-radius: 12px;
-           cursor: pointer;
-           transition: all 0.3s;
-           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-           text-decoration: none;
-           display: inline-block;
-       }
-
-       .modal-cta:hover {
-           transform: translateY(-2px);
-           box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-           background: #f8f8f8;
-       }
-
-       @keyframes fadeIn {
-           from { opacity: 0; }
-           to { opacity: 1; }
-       }
-
-       @keyframes slideUp {
-           from {
-               opacity: 0;
-               transform: translateY(30px);
-           }
-           to {
-               opacity: 1;
-               transform: translateY(0);
-           }
-       }
-
-       @keyframes bounce {
-           0%, 100% { transform: translateY(0); }
-           50% { transform: translateY(-10px); }
-       }
-   </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HeadStrong - Mental Health & Wellness App</title>
+  <meta name="description" content="HeadStrong is the gamified mental wellness app with AI therapy, mood tracking, and peer support. Take our free Mental Health Score quiz.">
+  <link rel="icon" href="./public/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="./public/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="./public/favicon-32x32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="./public/apple-touch-icon.png">
+  <link rel="manifest" href="./public/site.webmanifest">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-   <!-- Announcement Modal -->
-   <div id="announcementModal" class="announcement-modal-overlay">
-       <div class="announcement-modal">
-           <button class="modal-close" onclick="closeModal()">×</button>
-           <div class="modal-icon">🎉</div>
-           <h2 class="modal-title">TESTING IS LIVE!</h2>
-           <p class="modal-subtitle">
-               HeadStrong is now available for beta testing!<br>
-               Experience the future of mental wellness.
-           </p>
-           <a href="https://headstrong-ea612.web.app" class="modal-cta" target="_blank" rel="noopener noreferrer">
-               Launch App →
-           </a>
-       </div>
-   </div>
+  <!-- Header -->
+  <header id="header">
+    <div class="header-inner">
+      <a href="#" class="logo-link">
+        <img src="./public/logo.png" alt="HeadStrong Logo" class="logo" width="48" height="48">
+        <span class="logo-text">HeadStrong</span>
+      </a>
+      <nav id="nav">
+        <a href="#about">About</a>
+        <a href="#quiz">Take the Quiz</a>
+        <a href="#features">Features</a>
+        <a href="#preview">Preview</a>
+        <a href="https://headstrong-ea612.web.app" class="nav-cta" target="_blank" rel="noopener">Try the App</a>
+      </nav>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </header>
 
-   <script>
-       // Show modal on page load
-       window.addEventListener('DOMContentLoaded', function() {
-           document.getElementById('announcementModal').classList.remove('hidden');
-       });
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="hero">
+      <div class="hero-content">
+        <div class="hero-badge">Trusted by 1,000+ beta users</div>
+        <h1>Your mental health<br>deserves <span class="gradient-text">real tools.</span></h1>
+        <p class="hero-sub">AI therapy companions. Gamified mood tracking. Anonymous peer support. HeadStrong is the mental wellness app that actually gets it.</p>
+        <div class="hero-actions">
+          <a href="#quiz" class="btn btn-primary btn-lg">Take Your Mental Health Score</a>
+          <a href="https://headstrong-ea612.web.app" class="btn btn-outline btn-lg" target="_blank" rel="noopener">Try the Beta</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-num">15%</span>
+            <span class="stat-label">30-day retention</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num">5x</span>
+            <span class="stat-label">industry average</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num">4.8</span>
+            <span class="stat-label">user rating</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="phone-mockup">
+          <img src="./screenshots/dashboard.png" alt="HeadStrong app dashboard showing wellness levels and mood tracking" width="280" height="560" loading="eager">
+        </div>
+      </div>
+    </section>
 
-       // Close modal function
-       function closeModal() {
-           document.getElementById('announcementModal').classList.add('hidden');
-       }
+    <!-- About -->
+    <section class="about" id="about">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-text">
+            <h2>Built for people who think<br>"just meditate" isn't enough.</h2>
+            <p>HeadStrong isn't another generic wellness app with ocean sounds and breathing exercises. It's a survival kit for real minds — built by someone who needed it.</p>
+            <p>We combine clinical-grade assessments, dual-persona AI therapy (choose analytical Liam or empathetic Ariel), and gamified progress tracking that actually keeps you coming back.</p>
+          </div>
+          <div class="about-cards">
+            <div class="about-card">
+              <svg class="about-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <h3>Not a replacement for therapy</h3>
+              <p>A powerful companion between sessions — or a first step if therapy isn't accessible yet.</p>
+            </div>
+            <div class="about-card">
+              <svg class="about-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <h3>Your data stays yours</h3>
+              <p>HIPAA-informed architecture. Crisis detection in under 10 seconds. Zero-tolerance safety protocols.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-       // Close modal when clicking outside
-       document.getElementById('announcementModal')?.addEventListener('click', function(e) {
-           if (e.target === this) {
-               closeModal();
-           }
-       });
+    <!-- Mental Health Quiz -->
+    <section class="quiz-section" id="quiz">
+      <div class="container">
+        <div class="quiz-header">
+          <h2>What's Your Mental Health Score?</h2>
+          <p>5 questions. 60 seconds. Get a free snapshot of where your mental wellness stands — and what to do next.</p>
+        </div>
+        <div class="quiz-container" id="quizContainer">
+          <!-- Start Screen -->
+          <div class="quiz-screen active" id="quizStart">
+            <div class="quiz-start-content">
+              <div class="quiz-start-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+              </div>
+              <h3>A taste of what HeadStrong offers</h3>
+              <p>This quick self-assessment covers 5 key dimensions of mental wellness. It's not a diagnosis — it's a starting point.</p>
+              <ul class="quiz-features">
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Takes under 60 seconds</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Instant score with insights</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> No account required</li>
+              </ul>
+              <button class="btn btn-primary btn-lg" onclick="startQuiz()">Start Assessment</button>
+            </div>
+          </div>
 
-       // Close modal with Escape key
-       document.addEventListener('keydown', function(e) {
-           if (e.key === 'Escape') {
-               closeModal();
-           }
-       });
-   </script>
+          <!-- Question Screens (rendered by JS) -->
+          <div class="quiz-screen" id="quizQuestions">
+            <div class="quiz-progress">
+              <div class="quiz-progress-bar" id="progressBar"></div>
+            </div>
+            <div class="quiz-step-label" id="stepLabel">Question 1 of 5</div>
+            <h3 class="quiz-question" id="questionText"></h3>
+            <div class="quiz-options" id="optionsContainer"></div>
+          </div>
 
-   <header>
-       <div class="header-content">
-           <div class="logo-container">
-               <img src="./public/logo.png" alt="HeadStrong Logo" class="logo">
-               <div class="tagline-container">
-                   <span class="tagline">THINK STRONG | BE STRONG</span>
-               </div>
-           </div>
-           <nav>
-               <a href="#about">About</a>
-               <a href="#preview">App Preview</a>
-               <a href="#features">Features</a>
-               <a href="#team">Team</a>
-               <a href="#join" class="cta-button">Join Waitlist</a>
-           </nav>
-       </div>
-   </header>
+          <!-- Results Screen -->
+          <div class="quiz-screen" id="quizResults">
+            <div class="results-content">
+              <h3>Your Mental Health Score</h3>
+              <div class="score-ring" id="scoreRing">
+                <svg viewBox="0 0 120 120" class="score-svg">
+                  <circle cx="60" cy="60" r="52" fill="none" stroke="var(--border)" stroke-width="8"/>
+                  <circle cx="60" cy="60" r="52" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" id="scoreCircle" stroke-dasharray="327" stroke-dashoffset="327" transform="rotate(-90 60 60)"/>
+                </svg>
+                <span class="score-number" id="scoreNumber">0</span>
+              </div>
+              <div class="score-label" id="scoreLabel"></div>
+              <div class="score-breakdown" id="scoreBreakdown"></div>
+              <div class="results-gate" id="resultsGate">
+                <p class="gate-text">Want your personalized action plan with specific tools for your score?</p>
+                <form class="gate-form" id="gateForm">
+                  <input type="email" placeholder="Enter your email" required id="gateEmail" autocomplete="email">
+                  <button type="submit" class="btn btn-primary">Get My Action Plan</button>
+                </form>
+              </div>
+              <div class="results-cta">
+                <p>HeadStrong tracks these dimensions daily and shows you exactly how to improve.</p>
+                <a href="https://headstrong-ea612.web.app" class="btn btn-primary btn-lg" target="_blank" rel="noopener">Try HeadStrong Free</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-   <main>
-       <!-- About Section -->
-       <section class="about" id="about">
-           <div class="section-content">
-               <h2>About HeadStrong</h2>
-               <div class="about-text">
-                   <p>A mental health app designed to support your unique journey while fostering a welcoming and inclusive space for all.</p>
-                   <p>Through mental fitness tools, personalized mood tracking, and peer connections, we're building a community where vulnerability meets strength, and seeking support is a sign of courage, not weakness.</p>
-               </div>
-           </div>
-       </section>
+    <!-- Features -->
+    <section class="features" id="features">
+      <div class="container">
+        <h2>Everything your nervous system<br>has been asking for.</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon-wrap">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <h3>Dual-Persona AI Therapy</h3>
+            <p>Choose between Liam (analytical, structured) or Ariel (empathetic, warm). First app with AI companions that adapt to your therapeutic needs.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon-wrap">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3>Anonymous Peer Support</h3>
+            <p>Connect with people who get it. Safe, anonymous sessions with 95%+ accurate crisis detection and under 10-second emergency response.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon-wrap">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <h3>Gamified Progress</h3>
+            <p>XP rewards, wellness levels, and achievement milestones. Track sleep, exercise, mood, and stress — and actually see yourself improve.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon-wrap">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <h3>Clinical-Grade Insights</h3>
+            <p>Big 5 personality, shadow work, and trauma trigger analysis. Professional-level assessments that licensed therapists actually trust.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-       <!-- App Preview Section -->
-       <section class="app-preview" id="preview">
-           <div class="section-content">
-               <h2>Experience HeadStrong</h2>
-               <p class="preview-subtitle">Join 1,000+ users already experiencing breakthrough mental wellness through our evidence-based, gamified approach</p>
-               
-               <div class="screenshots-grid">
-                   <div class="screenshot-item">
-                       <img src="./screenshots/dashboard.png" alt="Wellness Dashboard" />
-                       <h4>Your Growth Journey</h4>
-                       <p><strong>9x higher retention than competitors.</strong> Track progress with gamified wellness levels, XP rewards, and achievement milestones that keep users engaged for months, not days.</p>
-                   </div>
-                   
-                   <div class="screenshot-item">
-                       <img src="./screenshots/checkin.png" alt="Check-In assessment" />
-                       <h4>Mindful Assessment</h4>
-                       <p>Thoughtful wellness tracking across sleep, exercise, social connection, and stress management</p>
-                   </div>
-                   
-                   <div class="screenshot-item">
-                       <img src="./screenshots/aichat.png" alt="AI Chat" />
-                       <h4>Personalized AI Support</h4>
-                       <p><strong>First dual-persona AI therapy.</strong> Choose between Liam (analytical) or Ariel (empathetic) for conversations that adapt to your personality and therapeutic needs.</p>
-                   </div>
-                   
-                   <div class="screenshot-item">
-                       <img src="./screenshots/peerchat.png" alt="Peer Chat" />
-                       <h4>Anonymous Community</h4>
-                       <p><strong>Zero-tolerance crisis intervention.</strong> Connect with peers through safe, anonymous sessions with 95%+ accurate crisis detection and &lt;10-second emergency response.</p>
-                   </div>
-                   
-                   <div class="screenshot-item">
-                       <img src="./screenshots/insights.png" alt="Insights tab" />
-                       <h4>Clinical-Grade Insights</h4>
-                       <p><strong>Professional-level assessments.</strong> Big 5 personality, shadow work, and trauma triggers analysis with correlations that licensed therapists trust and use.</p>
-                   </div>
-               </div>
-           </div>
-       </section>
+    <!-- App Preview -->
+    <section class="preview" id="preview">
+      <div class="container">
+        <h2>See it in action.</h2>
+        <p class="preview-sub">Real screenshots from the HeadStrong beta.</p>
+        <div class="preview-scroll">
+          <div class="preview-card">
+            <img src="./screenshots/dashboard.png" alt="Wellness dashboard" width="240" height="480" loading="lazy">
+            <h4>Growth Journey</h4>
+            <p>Gamified wellness levels and XP that keep you engaged for months.</p>
+          </div>
+          <div class="preview-card">
+            <img src="./screenshots/checkin.png" alt="Daily check-in" width="240" height="480" loading="lazy">
+            <h4>Smart Check-ins</h4>
+            <p>Track sleep, exercise, social health, and stress in under a minute.</p>
+          </div>
+          <div class="preview-card">
+            <img src="./screenshots/aichat.png" alt="AI therapy chat" width="240" height="480" loading="lazy">
+            <h4>AI Companions</h4>
+            <p>Liam or Ariel — choose the therapeutic style that fits you.</p>
+          </div>
+          <div class="preview-card">
+            <img src="./screenshots/peerchat.png" alt="Peer support chat" width="240" height="480" loading="lazy">
+            <h4>Peer Connection</h4>
+            <p>Anonymous, safe conversations with built-in crisis detection.</p>
+          </div>
+          <div class="preview-card">
+            <img src="./screenshots/insights.png" alt="Clinical insights" width="240" height="480" loading="lazy">
+            <h4>Deep Insights</h4>
+            <p>Personality analysis and correlations you won't find anywhere else.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-       <!-- Features Section -->
-       <section class="features" id="features">
-           <div class="section-content">
-               <h2>Core Features</h2>
-               <div class="features-grid">
-                   <div class="feature-card">
-                       <div class="feature-icon">🤝</div>
-                       <h3>Peer Support</h3>
-                       <p>Connect with others through authentic conversations in a safe, judgment-free environment designed to foster genuine connection.</p>
-                   </div>
-                   <div class="feature-card">
-                       <div class="feature-icon">🧠</div>
-                       <h3>AI Guidance</h3>
-                       <p>Receive personalized mental health insights and resources through our advanced AI companion, available whenever you need support.</p>
-                   </div>
-                   <div class="feature-card">
-                       <div class="feature-icon">📊</div>
-                       <h3>Progress Tracking</h3>
-                       <p>Monitor your mental wellness journey with intuitive tools that track sleep patterns, exercise, mood fluctuations, and personal growth.</p>
-                   </div>
-                   <div class="feature-card">
-                       <div class="feature-icon">🌱</div>
-                       <h3>Future Features</h3>
-                       <p>Access professional development through upcoming webinars and one-on-one virtual therapy sessions with licensed practitioners.</p>
-                   </div>
-               </div>
-           </div>
-       </section>
+    <!-- Social Proof -->
+    <section class="social-proof" id="proof">
+      <div class="container">
+        <div class="proof-grid">
+          <div class="proof-card">
+            <div class="proof-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p>"I've tried Calm, Headspace, BetterHelp — none of them stuck. HeadStrong's gamification actually makes me want to check in every day."</p>
+            <span class="proof-author">Beta user, 23</span>
+          </div>
+          <div class="proof-card">
+            <div class="proof-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p>"The AI therapy is surprisingly good. Ariel feels like talking to a friend who actually understands psychology."</p>
+            <span class="proof-author">Beta user, 27</span>
+          </div>
+          <div class="proof-card">
+            <div class="proof-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p>"The peer chat feature helped me realize I'm not the only one struggling. That alone was worth it."</p>
+            <span class="proof-author">Beta user, 21</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-       <!-- Team Section -->
-       <section class="team" id="team">
-           <div class="section-content">
-               <h2>Meet the Team</h2>
-               <div class="team-grid">
-                   <div class="team-member">
-                       <h3>Eric Jacoby</h3>
-                       <p class="role">CEO/Founder</p>
-                       <p class="team-desc">Leading the development and vision of HeadStrong's mental health platform through innovative software engineering solutions.</p>
-                   </div>
-                   <div class="team-member">
-                       <h3>Tyler Nichols</h3>
-                       <p class="role">CTO</p>
-                       <p class="team-desc">Architecting robust tech stacks and infrastructure to ensure seamless, scalable mental health support services.</p>
-                   </div>
-                   <div class="team-member">
-                       <h3>Eitan Flor</h3>
-                       <p class="role">CDO</p>
-                       <p class="team-desc">Leveraging user data analytics to provide personalized mental health insights and track wellness progression.</p>
-                   </div>
-                   <div class="team-member">
-                       <h3>Herb Fleur</h3>
-                       <p class="role">CSO</p>
-                       <p class="team-desc">Ensuring HIPAA compliance and implementing robust security measures to protect sensitive user mental health data.</p>
-                   </div>
-                   <div class="team-member">
-                       <h3>Matt Weissman</h3>
-                       <p class="role">CFO</p>
-                       <p class="team-desc">Managing financial planning, fundraising strategies, and sustainable growth models for HeadStrong's mental health initiatives.</p>
-                   </div>
-               </div>
-           </div>
-       </section>
+    <!-- Final CTA -->
+    <section class="final-cta" id="join">
+      <div class="container">
+        <h2>Your mind is worth fighting for.</h2>
+        <p>Join 1,000+ people who chose their mental health. Free to start. No credit card required.</p>
+        <div class="cta-actions">
+          <a href="https://headstrong-ea612.web.app" class="btn btn-primary btn-lg" target="_blank" rel="noopener">Get HeadStrong Free</a>
+          <a href="#quiz" class="btn btn-outline btn-lg">Take the Quiz First</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
-       <!-- Waitlist Section -->
-       <section class="waitlist" id="join">
-           <div class="section-content">
-               <h2>Join the Mental Wellness Revolution</h2>
-               <p class="waitlist-subtitle">Join 1,000+ beta users experiencing 15% 30-day retention (vs. 3% industry average). Limited spots available for our freemium launch with 3 free AI sessions monthly.</p>
-               <form action="#" method="post" id="join-form" class="waitlist-form">
-                   <div class="form-group">
-                       <input type="email" placeholder="Enter your email" required>
-                       <button type="submit">Join Waitlist</button>
-                   </div>
-               </form>
-           </div>
-       </section>
-   </main>
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <img src="./public/logo.png" alt="HeadStrong" width="32" height="32" class="footer-logo">
+        <span>&copy; 2026 HeadStrong. All rights reserved.</span>
+      </div>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="https://instagram.com/getheadstrong" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </footer>
 
-   <footer>
-       <div class="footer-content">
-           <p>&copy; 2025 HeadStrong. All Rights Reserved.</p>
-           <div class="footer-links">
-               <a href="#">Privacy Policy</a>
-               <a href="#">Terms of Service</a>
-           </div>
-       </div>
-   </footer>
+  <!-- Quiz Logic -->
+  <script>
+    const questions = [
+      {
+        id: 'anxiety',
+        text: 'How often do you feel anxious or overwhelmed?',
+        dimension: 'Anxiety',
+        options: [
+          { text: 'Rarely — I handle stress well', score: 4 },
+          { text: 'Sometimes — it comes and goes', score: 3 },
+          { text: 'Often — most days feel heavy', score: 2 },
+          { text: 'Almost always — it never stops', score: 1 }
+        ]
+      },
+      {
+        id: 'sleep',
+        text: 'How would you describe your sleep quality?',
+        dimension: 'Sleep',
+        options: [
+          { text: 'Great — I wake up rested', score: 4 },
+          { text: 'Decent — could be better', score: 3 },
+          { text: 'Poor — I toss and turn', score: 2 },
+          { text: 'Terrible — I dread bedtime', score: 1 }
+        ]
+      },
+      {
+        id: 'mood',
+        text: 'How stable has your mood been this past week?',
+        dimension: 'Mood',
+        options: [
+          { text: 'Very stable — I feel like myself', score: 4 },
+          { text: 'Mostly okay — some ups and downs', score: 3 },
+          { text: 'Unpredictable — I don\'t know what\'s coming', score: 2 },
+          { text: 'All over the place — I feel out of control', score: 1 }
+        ]
+      },
+      {
+        id: 'coping',
+        text: 'When something stressful happens, how do you cope?',
+        dimension: 'Coping',
+        options: [
+          { text: 'I have healthy tools that work for me', score: 4 },
+          { text: 'I try — but sometimes I spiral', score: 3 },
+          { text: 'I usually shut down or avoid it', score: 2 },
+          { text: 'I don\'t cope — I just survive', score: 1 }
+        ]
+      },
+      {
+        id: 'connection',
+        text: 'How connected do you feel to the people around you?',
+        dimension: 'Connection',
+        options: [
+          { text: 'Very — I have people I trust', score: 4 },
+          { text: 'Somewhat — but I keep things surface-level', score: 3 },
+          { text: 'Not much — I feel like the "strong friend"', score: 2 },
+          { text: 'Isolated — I\'m mostly on my own', score: 1 }
+        ]
+      }
+    ];
 
-   <script type="module">
-       import { addToWaitlist } from './firebase.js';
+    let currentQ = 0;
+    let answers = {};
 
-       // Handle form submission
-       document.getElementById('join-form').addEventListener('submit', async (e) => {
-           e.preventDefault();
-           const email = e.target.elements[0].value;
-           try {
-               await addToWaitlist(email);
-               alert('Thanks for joining the waitlist!');
-               e.target.reset();
-           } catch (error) {
-               console.error('Error:', error);
-               alert('Error joining waitlist. Please try again.');
-           }
-       });
-       
-       // Add scroll effect for header
-       window.addEventListener('scroll', () => {
-           const header = document.querySelector('header');
-           if (window.scrollY > 50) {
-               header.classList.add('scrolled');
-           } else {
-               header.classList.remove('scrolled');
-           }
-       });
-   </script>
+    function startQuiz() {
+      document.getElementById('quizStart').classList.remove('active');
+      document.getElementById('quizQuestions').classList.add('active');
+      showQuestion(0);
+    }
+
+    function showQuestion(idx) {
+      currentQ = idx;
+      const q = questions[idx];
+      document.getElementById('stepLabel').textContent = `Question ${idx + 1} of ${questions.length}`;
+      document.getElementById('progressBar').style.width = `${((idx) / questions.length) * 100}%`;
+      document.getElementById('questionText').textContent = q.text;
+
+      const container = document.getElementById('optionsContainer');
+      container.innerHTML = '';
+      q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-option';
+        btn.textContent = opt.text;
+        btn.onclick = () => selectAnswer(q.id, opt.score, q.dimension, btn);
+        container.appendChild(btn);
+      });
+    }
+
+    function selectAnswer(id, score, dimension, btn) {
+      answers[id] = { score, dimension };
+      btn.classList.add('selected');
+
+      // Disable all options briefly
+      document.querySelectorAll('.quiz-option').forEach(b => b.style.pointerEvents = 'none');
+
+      setTimeout(() => {
+        if (currentQ < questions.length - 1) {
+          showQuestion(currentQ + 1);
+        } else {
+          showResults();
+        }
+      }, 400);
+    }
+
+    function showResults() {
+      document.getElementById('quizQuestions').classList.remove('active');
+      document.getElementById('quizResults').classList.add('active');
+      document.getElementById('progressBar').style.width = '100%';
+
+      const total = Object.values(answers).reduce((sum, a) => sum + a.score, 0);
+      const maxScore = questions.length * 4;
+      const percentage = Math.round((total / maxScore) * 100);
+
+      // Animate score
+      const circle = document.getElementById('scoreCircle');
+      const numEl = document.getElementById('scoreNumber');
+      const circumference = 327;
+      const offset = circumference - (percentage / 100) * circumference;
+
+      let count = 0;
+      const counter = setInterval(() => {
+        count += 2;
+        if (count > percentage) count = percentage;
+        numEl.textContent = count;
+        circle.style.strokeDashoffset = circumference - (count / 100) * circumference;
+        if (count >= percentage) clearInterval(counter);
+      }, 20);
+
+      // Score label
+      let label, color;
+      if (percentage >= 80) { label = 'Strong Foundation'; color = '#059669'; }
+      else if (percentage >= 60) { label = 'Room to Grow'; color = '#D97706'; }
+      else if (percentage >= 40) { label = 'Needs Attention'; color = '#DC2626'; }
+      else { label = 'Time to Prioritize You'; color = '#DC2626'; }
+
+      document.getElementById('scoreLabel').textContent = label;
+      document.getElementById('scoreLabel').style.color = color;
+      circle.style.stroke = color;
+
+      // Breakdown
+      const breakdown = document.getElementById('scoreBreakdown');
+      breakdown.innerHTML = Object.entries(answers).map(([id, a]) => {
+        const pct = (a.score / 4) * 100;
+        const barColor = pct >= 75 ? '#059669' : pct >= 50 ? '#D97706' : '#DC2626';
+        return `<div class="breakdown-row">
+          <span class="breakdown-label">${a.dimension}</span>
+          <div class="breakdown-bar"><div class="breakdown-fill" style="width:${pct}%;background:${barColor}"></div></div>
+          <span class="breakdown-score">${a.score}/4</span>
+        </div>`;
+      }).join('');
+    }
+
+    // Gate form
+    document.getElementById('gateForm')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('gateEmail').value;
+      const btn = e.target.querySelector('button');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      try {
+        const { addToWaitlist } = await import('./firebase.js');
+        await addToWaitlist(email);
+        document.getElementById('resultsGate').innerHTML = '<div class="gate-success"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg><p>Check your inbox! Your personalized action plan is on its way.</p></div>';
+      } catch (err) {
+        btn.textContent = 'Get My Action Plan';
+        btn.disabled = false;
+        alert('Something went wrong. Please try again.');
+      }
+    });
+
+    // Mobile menu
+    document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
+      document.getElementById('nav').classList.toggle('open');
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('#nav a').forEach(a => {
+      a.addEventListener('click', () => document.getElementById('nav').classList.remove('open'));
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
 </body>
 </html>
