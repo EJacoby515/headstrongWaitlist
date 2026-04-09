@@ -9,6 +9,7 @@ export default defineConfig({
         privacy: resolve(__dirname, 'privacy.html'),
         terms: resolve(__dirname, 'terms.html'),
         tiktokCallback: resolve(__dirname, 'tiktok-callback.html'),
+        tiktokAdmin: resolve(__dirname, 'tiktok-admin.html'),
       },
     },
   },

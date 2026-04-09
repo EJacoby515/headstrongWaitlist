@@ -130,7 +130,13 @@
     </div>
 
     <div class="instructions">
-      <strong>Next step:</strong> Return to your terminal and paste the values when prompted by <code>scripts/tiktok-auth.js</code>.
+      <strong>Next step:</strong> On the HeadStrong posting server, run:
+      <br />
+      <code>node scripts/tiktok-auth.js exchange "CODE|STATE"</code>
+      <br /><br />
+      The server exchanges this code (plus the client secret) for an access + refresh token and stores them in the environment. From then on the daily posting script refreshes the token automatically — no further action needed.
+      <br /><br />
+      Need to start over? <a href="/tiktok-admin.html" style="color: var(--sage); font-weight: 600;">Return to the admin page →</a>
     </div>
   </div>
 
@@ -142,18 +148,28 @@
     const errorDesc = params.get('error_description');
     const statusBox = document.getElementById('status-box');
     const codeSection = document.getElementById('code-section');
+    const savedState = localStorage.getItem('tiktok_oauth_state');
 
     if (error) {
       statusBox.className = 'status error';
       statusBox.textContent = 'OAuth error: ' + error + (errorDesc ? ' — ' + errorDesc : '');
     } else if (code && state) {
-      statusBox.textContent = 'TikTok returned successfully. Copy the values below into your CLI.';
+      let msg = 'TikTok returned successfully. Copy the values below and paste them into your CLI.';
+      if (savedState && savedState !== state) {
+        msg = '⚠ State mismatch — expected "' + savedState.slice(0, 8) + '…" but got "' + state.slice(0, 8) + '…". Possible CSRF. Abort and start over.';
+        statusBox.className = 'status error';
+      } else if (savedState && savedState === state) {
+        msg = '✓ State verified. Copy the values below and paste them into your CLI.';
+      }
+      statusBox.textContent = msg;
       codeSection.style.display = 'block';
       document.getElementById('code-value').textContent = code;
       document.getElementById('state-value').textContent = state;
+      // Clear one-shot OAuth state after successful display
+      if (savedState) localStorage.removeItem('tiktok_oauth_state');
     } else {
       statusBox.className = 'status error';
-      statusBox.textContent = 'No code or state in URL. Open this page by completing the TikTok OAuth flow from your CLI.';
+      statusBox.textContent = 'No code or state in URL. Start the OAuth flow from the admin page or your CLI.';
     }
 
     function copyAll() {

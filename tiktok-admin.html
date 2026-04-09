@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>TikTok Admin — HeadStrong</title>
+  <link rel="icon" href="/favicon.ico" />
+  <style>
+    :root {
+      --forest: #2D3E34;
+      --sage: #4E8A6F;
+      --sage-dark: #3f7058;
+      --terracotta: #D4845A;
+      --clay: #B8956F;
+      --cream: #F8F4F0;
+      --muted: #6b6b6b;
+      --border: rgba(78, 138, 111, 0.18);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Nunito, sans-serif;
+      background: var(--cream);
+      color: var(--forest);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+      line-height: 1.5;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 44px 40px;
+      max-width: 640px;
+      width: 100%;
+      box-shadow: 0 12px 40px rgba(45, 62, 52, 0.1);
+      border: 1px solid var(--border);
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--sage);
+      background: rgba(78, 138, 111, 0.08);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+    h1 {
+      font-family: "DM Serif Display", Georgia, serif;
+      font-size: 32px;
+      margin-bottom: 10px;
+      color: var(--forest);
+      letter-spacing: -0.01em;
+    }
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 28px;
+      font-size: 15px;
+    }
+    .section {
+      margin-bottom: 24px;
+    }
+    .label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1.5px solid #e3e3e3;
+      font-size: 14px;
+      font-family: "SF Mono", Monaco, "Courier New", monospace;
+      color: var(--forest);
+      background: #fbfbf9;
+      transition: border-color 0.15s;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--sage);
+    }
+    .readonly-row {
+      background: #f6f3ef;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-family: "SF Mono", Monaco, "Courier New", monospace;
+      font-size: 13px;
+      color: var(--forest);
+      border: 1px solid #e9e5df;
+      word-break: break-all;
+    }
+    .scope-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .scope-list li {
+      background: rgba(78, 138, 111, 0.1);
+      color: var(--sage-dark);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: "SF Mono", Monaco, monospace;
+    }
+    button.primary {
+      background: var(--sage);
+      color: white;
+      border: none;
+      padding: 16px 28px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.15s, transform 0.1s;
+      letter-spacing: 0.01em;
+    }
+    button.primary:hover { background: var(--sage-dark); }
+    button.primary:active { transform: translateY(1px); }
+    button.primary:disabled {
+      background: #c8ccc9;
+      cursor: not-allowed;
+    }
+    .status {
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+    .status.error {
+      background: rgba(212, 132, 90, 0.1);
+      color: var(--terracotta);
+      border-left: 3px solid var(--terracotta);
+    }
+    .status.info {
+      background: rgba(184, 149, 111, 0.1);
+      color: var(--clay);
+      border-left: 3px solid var(--clay);
+    }
+    .helper {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .divider {
+      height: 1px;
+      background: #eee;
+      margin: 28px 0;
+    }
+    .footer-note {
+      font-size: 12px;
+      color: #999;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+      line-height: 1.6;
+    }
+    .footer-note code {
+      background: #f4f1ec;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="eyebrow">Internal · Admin only</span>
+    <h1>TikTok Connection</h1>
+    <p class="subtitle">
+      One-time OAuth bootstrap for the HeadStrong brand TikTok account (<strong>@get.headstrong</strong>).
+      Clicking Connect starts TikTok's authorization flow, returns an authorization code to our callback page,
+      and our server exchanges that code for a long-lived refresh token used by the daily posting pipeline.
+    </p>
+
+    <div id="status" class="status info" style="display:none;"></div>
+
+    <div class="section">
+      <label class="label" for="clientKey">Client Key</label>
+      <input type="text" id="clientKey" placeholder="awxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false" />
+      <p class="helper">Saved locally in this browser. Use the sandbox key for testing, swap in the production key after review approval.</p>
+    </div>
+
+    <div class="section">
+      <label class="label">Redirect URI</label>
+      <div class="readonly-row">https://getheadstrong.xyz/tiktok-callback.html</div>
+    </div>
+
+    <div class="section">
+      <label class="label">Requested Scopes</label>
+      <ul class="scope-list">
+        <li>user.info.basic</li>
+        <li>video.upload</li>
+        <li>video.publish</li>
+      </ul>
+    </div>
+
+    <div class="divider"></div>
+
+    <button class="primary" id="connectBtn">Connect TikTok →</button>
+
+    <div class="footer-note">
+      <strong>How this works:</strong>
+      <br />
+      1. This page generates a PKCE code_verifier + challenge and a random <code>state</code>.
+      <br />
+      2. You're redirected to <code>tiktok.com/v2/auth/authorize/</code> where you approve the scopes.
+      <br />
+      3. TikTok sends you back to <code>/tiktok-callback.html</code> with a short-lived authorization code.
+      <br />
+      4. You copy the code into <code>node scripts/tiktok-auth.js exchange "CODE|STATE"</code> on the posting server, which exchanges it (with the client secret) for access + refresh tokens stored in our <code>.env</code>.
+      <br /><br />
+      The access token refreshes automatically from then on. No user ever sees this page — it's only used by the HeadStrong team to authorize our own brand account.
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'tiktok_admin_client_key';
+    const VERIFIER_KEY = 'tiktok_pkce_verifier';
+    const STATE_KEY = 'tiktok_oauth_state';
+    const REDIRECT_URI = 'https://getheadstrong.xyz/tiktok-callback.html';
+    const AUTHORIZE_URL = 'https://www.tiktok.com/v2/auth/authorize/';
+    const SCOPES = 'user.info.basic,video.upload,video.publish';
+
+    const clientKeyInput = document.getElementById('clientKey');
+    const connectBtn = document.getElementById('connectBtn');
+    const statusBox = document.getElementById('status');
+
+    // Restore saved client key (defaults to sandbox key if none saved)
+    clientKeyInput.value = localStorage.getItem(STORAGE_KEY) || 'sbawcnbtmm9g5k6swr';
+    clientKeyInput.addEventListener('input', () => {
+      localStorage.setItem(STORAGE_KEY, clientKeyInput.value.trim());
+    });
+
+    function showStatus(message, type) {
+      statusBox.textContent = message;
+      statusBox.className = 'status ' + type;
+      statusBox.style.display = 'block';
+    }
+
+    function base64UrlEncode(bytes) {
+      let str = '';
+      for (let i = 0; i < bytes.length; i++) str += String.fromCharCode(bytes[i]);
+      return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    }
+
+    async function sha256(ascii) {
+      const buf = new TextEncoder().encode(ascii);
+      const hash = await crypto.subtle.digest('SHA-256', buf);
+      return new Uint8Array(hash);
+    }
+
+    function randomBytes(len) {
+      const arr = new Uint8Array(len);
+      crypto.getRandomValues(arr);
+      return arr;
+    }
+
+    async function startOAuth() {
+      const clientKey = clientKeyInput.value.trim();
+      if (!clientKey) {
+        showStatus('Client key is required.', 'error');
+        return;
+      }
+
+      try {
+        connectBtn.disabled = true;
+        connectBtn.textContent = 'Redirecting to TikTok…';
+
+        // PKCE
+        const codeVerifier = base64UrlEncode(randomBytes(48));
+        const challengeBytes = await sha256(codeVerifier);
+        const codeChallenge = base64UrlEncode(challengeBytes);
+
+        // CSRF state
+        const state = base64UrlEncode(randomBytes(16));
+
+        // Persist so the callback page can show + CLI can verify
+        localStorage.setItem(VERIFIER_KEY, codeVerifier);
+        localStorage.setItem(STATE_KEY, state);
+
+        const url = new URL(AUTHORIZE_URL);
+        url.searchParams.set('client_key', clientKey);
+        url.searchParams.set('scope', SCOPES);
+        url.searchParams.set('response_type', 'code');
+        url.searchParams.set('redirect_uri', REDIRECT_URI);
+        url.searchParams.set('state', state);
+        url.searchParams.set('code_challenge', codeChallenge);
+        url.searchParams.set('code_challenge_method', 'S256');
+
+        window.location.href = url.toString();
+      } catch (e) {
+        connectBtn.disabled = false;
+        connectBtn.textContent = 'Connect TikTok →';
+        showStatus('Failed to start OAuth: ' + e.message, 'error');
+      }
+    }
+
+    connectBtn.addEventListener('click', startOAuth);
+  </script>
+</body>
+</html>
