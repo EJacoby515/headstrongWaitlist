@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TikTok Auth Callback — HeadStrong</title>
+  <style>
+    :root {
+      --forest: #2D3E34;
+      --sage: #4E8A6F;
+      --terracotta: #D4845A;
+      --cream: #F8F4F0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--cream);
+      color: var(--forest);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 560px;
+      width: 100%;
+      box-shadow: 0 8px 32px rgba(45, 62, 52, 0.08);
+      border: 1px solid rgba(78, 138, 111, 0.15);
+    }
+    h1 {
+      font-family: "DM Serif Display", Georgia, serif;
+      font-size: 28px;
+      margin-bottom: 8px;
+      color: var(--forest);
+    }
+    .subtitle {
+      color: #6b6b6b;
+      margin-bottom: 24px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    .status {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .status.success {
+      background: rgba(78, 138, 111, 0.1);
+      color: var(--sage);
+      border-left: 3px solid var(--sage);
+    }
+    .status.error {
+      background: rgba(212, 132, 90, 0.1);
+      color: var(--terracotta);
+      border-left: 3px solid var(--terracotta);
+    }
+    .code-box {
+      background: #f4f4f4;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: "SF Mono", Monaco, "Courier New", monospace;
+      font-size: 12px;
+      word-break: break-all;
+      margin-bottom: 16px;
+      max-height: 120px;
+      overflow-y: auto;
+      border: 1px solid #e5e5e5;
+    }
+    .label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    button {
+      background: var(--sage);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s;
+    }
+    button:hover { background: #3f7058; }
+    button.copied { background: var(--forest); }
+    .instructions {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+      font-size: 13px;
+      color: #666;
+      line-height: 1.6;
+    }
+    .instructions ol { padding-left: 20px; }
+    .instructions li { margin-bottom: 6px; }
+    code {
+      background: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>TikTok Auth Callback</h1>
+    <p class="subtitle">HeadStrong OAuth bootstrap — copy the values below into your CLI.</p>
+
+    <div id="status-box" class="status success">Waiting for callback parameters...</div>
+
+    <div id="code-section" style="display: none;">
+      <div class="label">Authorization Code</div>
+      <div class="code-box" id="code-value">—</div>
+
+      <div class="label">State</div>
+      <div class="code-box" id="state-value">—</div>
+
+      <button id="copy-btn" onclick="copyAll()">Copy code + state</button>
+    </div>
+
+    <div class="instructions">
+      <strong>Next step:</strong> Return to your terminal and paste the values when prompted by <code>scripts/tiktok-auth.js</code>.
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    const state = params.get('state');
+    const error = params.get('error');
+    const errorDesc = params.get('error_description');
+    const statusBox = document.getElementById('status-box');
+    const codeSection = document.getElementById('code-section');
+
+    if (error) {
+      statusBox.className = 'status error';
+      statusBox.textContent = 'OAuth error: ' + error + (errorDesc ? ' — ' + errorDesc : '');
+    } else if (code && state) {
+      statusBox.textContent = 'TikTok returned successfully. Copy the values below into your CLI.';
+      codeSection.style.display = 'block';
+      document.getElementById('code-value').textContent = code;
+      document.getElementById('state-value').textContent = state;
+    } else {
+      statusBox.className = 'status error';
+      statusBox.textContent = 'No code or state in URL. Open this page by completing the TikTok OAuth flow from your CLI.';
+    }
+
+    function copyAll() {
+      const text = code + '|' + state;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copy-btn');
+        btn.textContent = 'Copied! Paste into terminal';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy code + state';
+          btn.classList.remove('copied');
+        }, 2500);
+      });
+    }
+  </script>
+</body>
+</html>
