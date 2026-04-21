@@ -10,6 +10,7 @@ export default defineConfig({
         terms: resolve(__dirname, 'terms.html'),
         tiktokCallback: resolve(__dirname, 'tiktok-callback.html'),
         tiktokAdmin: resolve(__dirname, 'tiktok-admin.html'),
+        dataDeletion: resolve(__dirname, 'data-deletion.html'),
       },
     },
   },
