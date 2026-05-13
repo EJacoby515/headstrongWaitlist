@@ -12,6 +12,7 @@
   <link rel="manifest" href="./site.webmanifest">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script type="module" src="/src/analytics.js"></script>
 </head>
 <body>
 
@@ -492,6 +493,7 @@
   function startQuiz() {
     document.getElementById('qsStart').classList.remove('active');
     document.getElementById('qsQuestions').classList.add('active');
+    window.track?.('quiz_started');
     showQ(0);
   }
 
@@ -514,6 +516,11 @@
 
   function pick(q, o, btn) {
     ans[q.id] = { score: o.s, dim: q.dim };
+    window.track?.('quiz_answer_selected', {
+      dimension: q.dim.toLowerCase(),
+      score: o.s,
+      question_index: cur,
+    });
     btn.classList.add('selected');
     document.querySelectorAll('.q-opt').forEach(x => x.style.pointerEvents = 'none');
     setTimeout(() => {
@@ -545,10 +552,14 @@
     }, 18);
 
     let label, color;
-    if (pct >= 80) { label = 'Strong roots — you’re tending well.'; color = 'var(--accent-deep)'; }
-    else if (pct >= 60) { label = 'Steady — with room to grow.'; color = 'var(--accent)'; }
-    else if (pct >= 40) { label = 'Worth tending — a little daily helps.'; color = 'var(--warm)'; }
-    else { label = 'Heavy season — you don’t have to carry it alone.'; color = 'var(--error)'; }
+    if (pct >= 80) { label = ‘Strong roots — you’re tending well.’; color = ‘var(--accent-deep)’; }
+    else if (pct >= 60) { label = ‘Steady — with room to grow.’; color = ‘var(--accent)’; }
+    else if (pct >= 40) { label = ‘Worth tending — a little daily helps.’; color = ‘var(--warm)’; }
+    else { label = ‘Heavy season — you don’t have to carry it alone.’; color = ‘var(--error)’; }
+
+    const dimScores = {};
+    Object.values(ans).forEach(a => { dimScores[a.dim.toLowerCase()] = a.score; });
+    window.track?.(‘quiz_completed’, { score_pct: pct, total_score: tot, ...dimScores });
     document.getElementById('rLabel').textContent = label;
     document.getElementById('rLabel').style.color = color;
     c.style.stroke = color;
@@ -576,6 +587,7 @@
       const scores = {};
       Object.entries(ans).forEach(([id, a]) => { scores[a.dim] = a.score; });
       await addQuizLead(email, pct, scores);
+      window.track?.('lead_captured', { score_pct: pct, source: 'quiz_gate' });
       document.getElementById('rGate').innerHTML = '<div class="gate-success"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg><div>Your first-season plan is on its way. Check your email.</div></div>';
     } catch (err) {
       btn.textContent = 'Send my plan';
