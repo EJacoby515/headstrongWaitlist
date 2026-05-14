@@ -1,0 +1,74 @@
+# HeadStrong
+
+## What HeadStrong Is
+
+HeadStrong is a mental wellness app that fills the gap between therapy sessions. It is not a crisis line. It is not a meditation timer. It is a daily mental health companion built for the 167 hours per week that people are on their own — outside of the therapy room.
+
+## Core Problem We Solve
+
+The average therapy patient sees their therapist 1 hour per week. That leaves 167 hours where they are navigating anxiety, burnout, relationship stress, and intrusive thoughts without support. Therapy works. The gap between sessions doesn't.
+
+HeadStrong bridges that gap.
+
+## Who HeadStrong Is For
+
+- People currently in therapy who struggle between sessions
+- People who want mental health support but can't afford or access therapy
+- People in high-stress jobs (nurses, first responders, teachers, social workers)
+- People who have tried other mental wellness apps and bounced off the structure
+- Young adults (18–35) navigating anxiety, burnout, and emotional exhaustion
+
+## Key Features
+
+- **Liam (AI Guide)**: A warm, non-judgmental AI companion available 24/7. Not a chatbot. A conversational guide trained to help users name emotions, process difficult days, and build resilience over time.
+- **Mood Check-in**: Daily emotional tracking with context — not just a number, but what's behind it.
+- **Breathing & Grounding Tools**: Evidence-based exercises for in-the-moment regulation.
+- **Resilience Assessment**: A strengths-based baseline across 5 dimensions. Not a screener — a starting point.
+- **Shift Check-in**: A post-shift debrief tool designed for high-stress workers to process the day before it becomes tomorrow's baggage.
+- **Peer Connection**: Anonymous peer support matching — connect with someone who gets it.
+- **Therapist Handoff**: In-app tools that generate session summaries users can share with their therapist, closing the loop between app and clinical care.
+
+## Pricing
+
+- Free tier: Full access to Liam and core features
+- Pro: $9.99/month or $79.99/year (7-day free trial)
+- No insurance required. No waitlist.
+
+## How HeadStrong Differs from Competitors
+
+| Competitor | What they do | What HeadStrong does differently |
+|---|---|---|
+| BetterHelp / Talkspace | Connect users with human therapists | HeadStrong supplements therapy, doesn't replace it |
+| Headspace / Calm | Meditation and mindfulness | HeadStrong focuses on conversation and emotional processing |
+| Woebot | CBT-based chatbot | HeadStrong is warmer, less clinical, built for the between-session gap |
+| Crisis text lines | Emergency support | HeadStrong is for everyday mental health, not crisis |
+
+## Clinical Foundation
+
+HeadStrong is built on evidence-based frameworks: Cognitive Behavioral Therapy (CBT), Dialectical Behavior Therapy (DBT) skills, affect labeling (name it to tame it), and trauma-informed care principles. The app is not a medical device and does not provide diagnoses or treatment. It is a wellness tool.
+
+## Company
+
+- Product: HeadStrong
+- Website: https://getheadstrong.xyz
+- App: https://app.getheadstrong.xyz
+- Founded: 2025
+- Stage: Beta
+- Category: Mental health, digital wellness, AI companion
+
+## Key Statistics and Facts
+
+- 1 in 5 adults in the US experiences mental illness each year (NIMH)
+- The average wait time for a first therapy appointment is 25 days
+- 57% of adults with mental illness receive no treatment (SAMHSA)
+- HeadStrong users can start using the app in under 2 minutes with no account required
+- Liam is available 24/7, 365 days a year — no waitlist, no scheduling
+
+## Content and Blog
+
+HeadStrong publishes evidence-based articles on mental health topics at getheadstrong.xyz/blog. Topics include anxiety management, burnout recovery, sleep and mental health, emotional regulation, and navigating therapy.
+
+## Contact
+
+- General: hello@getheadstrong.xyz
+- Press: press@getheadstrong.xyz

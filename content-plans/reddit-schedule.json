@@ -1,0 +1,139 @@
+{
+  "strategy": "Organic community participation — value first, mention HeadStrong only when natural. Never spam. Build karma.",
+  "rules": [
+    "Comment helpfully on 3–5 posts per subreddit per week BEFORE posting your own",
+    "Never post link-first — lead with the story/value, link at the end",
+    "Match the subreddit's flair culture — check top posts before posting",
+    "Respond to every comment on your posts within 24 hours",
+    "Track karma per subreddit — don't post until you have 10+ comment karma there"
+  ],
+  "schedule": [
+    {
+      "week": 1,
+      "date": "2026-05-18",
+      "postId": "lived-exp-mh",
+      "subreddit": "r/mentalhealth",
+      "action": "post",
+      "notes": "Monday morning — peak engagement window for mental health subs (Mon 8–11am ET)"
+    },
+    {
+      "week": 1,
+      "date": "2026-05-20",
+      "postId": "reframe-1",
+      "subreddit": "r/psychology",
+      "action": "post",
+      "notes": "Lead with the affect labeling science — links directly to blog article on the same topic"
+    },
+    {
+      "week": 1,
+      "date": "2026-05-22",
+      "postId": "late-night-1",
+      "subreddit": "r/insomnia",
+      "action": "post",
+      "notes": "Post at 10pm ET — when insomnia sub is most active"
+    },
+    {
+      "week": 2,
+      "date": "2026-05-25",
+      "postId": "peer-story-1",
+      "subreddit": "r/anxiety",
+      "action": "post",
+      "notes": "Build karma here first — comment on 5 threads Mon/Tue before posting Wed"
+    },
+    {
+      "week": 2,
+      "date": "2026-05-27",
+      "postId": "high-stress-1",
+      "subreddit": "r/nursing",
+      "action": "post",
+      "notes": "High-value niche — shift workers are an underserved segment, genuine pain point"
+    },
+    {
+      "week": 2,
+      "date": "2026-05-29",
+      "postId": "permission-rest-1",
+      "subreddit": "r/selfimprovement",
+      "action": "post",
+      "notes": "r/selfimprovement is large (2M+) — post Friday afternoon for weekend traffic"
+    },
+    {
+      "week": 3,
+      "date": "2026-06-01",
+      "postId": "high-stress-2",
+      "subreddit": "r/Teachers",
+      "action": "post",
+      "notes": "Teachers sub is highly engaged — post Mon morning before school week kicks in"
+    },
+    {
+      "week": 3,
+      "date": "2026-06-03",
+      "postId": "reframe-mh",
+      "subreddit": "r/depression",
+      "action": "post",
+      "notes": "Depression sub requires non-promotional tone — lead with empathy, product mention last line only"
+    },
+    {
+      "week": 3,
+      "date": "2026-06-05",
+      "postId": "lived-exp-1",
+      "subreddit": "r/depression",
+      "action": "post",
+      "notes": "Second post in this sub — only if you built karma from week 3 Mon post"
+    },
+    {
+      "week": 4,
+      "date": "2026-06-08",
+      "postId": "high-stress-1",
+      "subreddit": "r/ems",
+      "action": "post",
+      "notes": "First responder niche — high trust community, zero tolerance for spam, must be authentic"
+    },
+    {
+      "week": 4,
+      "date": "2026-06-10",
+      "postId": "high-stress-2",
+      "subreddit": "r/socialwork",
+      "action": "post",
+      "notes": "Social workers are a core ICP — high stress, high empathy, not served by consumer wellness apps"
+    }
+  ],
+  "newPostIdeas": [
+    {
+      "id": "gap-new-1",
+      "subreddits": ["r/therapy", "r/mentalhealth"],
+      "title": "My therapist is great. The week between sessions is brutal. Anyone else?",
+      "body": "I'm not in crisis. I just have a lot of thoughts that pile up between appointments.\n\nLast Thursday I left session feeling good. By Sunday the spiral was back. By Tuesday I was counting down to Thursday again.\n\nI've started using HeadStrong in between — it's an app with an AI (Liam) I can actually talk to at 10pm when the thoughts stack up. Not a replacement for my therapist. Just something to hold the gap.\n\nAnyone else dealt with this? What do you do between sessions to stay regulated?",
+      "flair": "Discussion",
+      "painAngle": "gap"
+    },
+    {
+      "id": "gap-new-2",
+      "subreddits": ["r/Anxiety", "r/mentalhealth"],
+      "title": "I calculated it: I spend 1 hour a week with my therapist and 167 hours on my own. That ratio is broken.",
+      "body": "Not complaining about my therapist — she's great. But the math hit me weird this week.\n\n1 hour of support. 167 hours of navigating it solo.\n\nI've been using HeadStrong to fill some of those hours — it's got an AI guide that actually listens and responds, and it helps me track what's coming up so I have something to bring to session.\n\nCurious if others feel the weight of those 167 hours too. What do you actually do with all that unsupported time?",
+      "flair": "Discussion",
+      "painAngle": "gap"
+    },
+    {
+      "id": "afterhours-new-1",
+      "subreddits": ["r/insomnia", "r/anxiety"],
+      "title": "11pm and my therapist isn't available, the crisis line feels like overkill, and there's nowhere to go. Anyone built something for this?",
+      "body": "Not in crisis. Just anxious and alone and the thoughts are loud.\n\nThis is the gap nobody talks about. Too okay for the crisis line, too dysregulated to just \"breathe through it.\"\n\nFound an app called HeadStrong — it's built for exactly this. An AI (Liam) you can actually talk to at 11pm. No judgment, no wait, no pressure.\n\ngetheadstrong.xyz — free. What do others do for this specific middle-of-the-night nowhere-to-go feeling?",
+      "flair": "Resources",
+      "painAngle": "after-hours"
+    }
+  ],
+  "subredditPriority": [
+    {"sub": "r/mentalhealth", "size": "1.2M", "priority": "high", "notes": "Core audience, active moderation, allow resource posts"},
+    {"sub": "r/anxiety", "size": "600K", "priority": "high", "notes": "Core audience, high engagement, strict spam rules"},
+    {"sub": "r/depression", "size": "900K", "priority": "high", "notes": "Core audience — tone must be empathetic, not promotional"},
+    {"sub": "r/therapy", "size": "200K", "priority": "high", "notes": "Perfect for gap angle — people already in therapy"},
+    {"sub": "r/insomnia", "size": "400K", "priority": "medium", "notes": "After-hours angle — 3am posts resonate"},
+    {"sub": "r/selfimprovement", "size": "2M+", "priority": "medium", "notes": "Large, diverse — permission angle works best"},
+    {"sub": "r/nursing", "size": "300K", "priority": "medium", "notes": "High-stress niche, authentic audience"},
+    {"sub": "r/Teachers", "size": "500K", "priority": "medium", "notes": "High empathy load, underserved by wellness apps"},
+    {"sub": "r/ems", "size": "150K", "priority": "medium", "notes": "Tight community — must be extremely authentic"},
+    {"sub": "r/socialwork", "size": "120K", "priority": "medium", "notes": "Core ICP for enterprise play"},
+    {"sub": "r/psychology", "size": "900K", "priority": "low", "notes": "Research/reframe posts only — no direct promotion"}
+  ]
+}
