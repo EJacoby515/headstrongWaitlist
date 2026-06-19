@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
   <title>TikTok Auth Callback — HeadStrong</title>
   <style>
     :root {
@@ -60,27 +61,10 @@
       color: var(--terracotta);
       border-left: 3px solid var(--terracotta);
     }
-    .code-box {
-      background: #f4f4f4;
-      border-radius: 8px;
-      padding: 16px;
-      font-family: "SF Mono", Monaco, "Courier New", monospace;
-      font-size: 12px;
-      word-break: break-all;
-      margin-bottom: 16px;
-      max-height: 120px;
-      overflow-y: auto;
-      border: 1px solid #e5e5e5;
-    }
-    .label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #888;
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-    button {
+    a.btn, button {
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
       background: var(--sage);
       color: white;
       border: none;
@@ -92,8 +76,7 @@
       width: 100%;
       transition: background 0.2s;
     }
-    button:hover { background: #3f7058; }
-    button.copied { background: var(--forest); }
+    a.btn:hover, button:hover { background: #3f7058; }
     .instructions {
       margin-top: 20px;
       padding-top: 20px;
@@ -102,8 +85,6 @@
       color: #666;
       line-height: 1.6;
     }
-    .instructions ol { padding-left: 20px; }
-    .instructions li { margin-bottom: 6px; }
     code {
       background: #f4f4f4;
       padding: 2px 6px;
@@ -114,75 +95,48 @@
 </head>
 <body>
   <div class="card">
-    <h1>TikTok Auth Callback</h1>
-    <p class="subtitle">HeadStrong OAuth bootstrap — copy the values below into your CLI.</p>
+    <h1>Connecting TikTok…</h1>
+    <p class="subtitle">Handing the authorization back to Social Studio on your Mac.</p>
 
-    <div id="status-box" class="status success">Waiting for callback parameters...</div>
+    <div id="status-box" class="status success">Returning to Social Studio…</div>
 
-    <div id="code-section" style="display: none;">
-      <div class="label">Authorization Code</div>
-      <div class="code-box" id="code-value">—</div>
-
-      <div class="label">State</div>
-      <div class="code-box" id="state-value">—</div>
-
-      <button id="copy-btn" onclick="copyAll()">Copy code + state</button>
+    <div id="manual" style="display: none;">
+      <a id="handoff-link" class="btn" href="#">Open Social Studio &amp; finish →</a>
     </div>
 
     <div class="instructions">
-      <strong>Next step:</strong> On the HeadStrong posting server, run:
-      <br />
-      <code>node scripts/tiktok-auth.js exchange "CODE|STATE"</code>
+      Social Studio (running locally) completes the secure PKCE token exchange — TikTok's
+      production redirect URI is locked to this page, so it forwards the one-time code to
+      <code>localhost</code>. Keep Social Studio open during this step.
       <br /><br />
-      The server exchanges this code (plus the client secret) for an access + refresh token and stores them in the environment. From then on the daily posting script refreshes the token automatically — no further action needed.
-      <br /><br />
-      Need to start over? <a href="/tiktok-admin.html" style="color: var(--sage); font-weight: 600;">Return to the admin page →</a>
+      Nothing happening? Make sure Social Studio is running, then use the button above.
+      Need to start over? <a href="/tiktok-admin.html" style="color: var(--sage); font-weight: 600;">Admin page →</a>
     </div>
   </div>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get('code');
-    const state = params.get('state');
-    const error = params.get('error');
-    const errorDesc = params.get('error_description');
-    const statusBox = document.getElementById('status-box');
-    const codeSection = document.getElementById('code-section');
-    const savedState = localStorage.getItem('tiktok_oauth_state');
+    // TikTok production apps lock the redirect URI to this HTTPS page. Social Studio
+    // runs locally and holds the PKCE code_verifier in memory, so the ONLY valid
+    // token exchange is on the local server — forward the exact query string there.
+    var PORT = 4100; // Social Studio's local port (electron-main.js / server.js default)
+    var params = new URLSearchParams(window.location.search);
+    var statusBox = document.getElementById('status-box');
+    var manual = document.getElementById('manual');
+    var error = params.get('error');
 
     if (error) {
       statusBox.className = 'status error';
-      statusBox.textContent = 'OAuth error: ' + error + (errorDesc ? ' — ' + errorDesc : '');
-    } else if (code && state) {
-      let msg = 'TikTok returned successfully. Copy the values below and paste them into your CLI.';
-      if (savedState && savedState !== state) {
-        msg = '⚠ State mismatch — expected "' + savedState.slice(0, 8) + '…" but got "' + state.slice(0, 8) + '…". Possible CSRF. Abort and start over.';
-        statusBox.className = 'status error';
-      } else if (savedState && savedState === state) {
-        msg = '✓ State verified. Copy the values below and paste them into your CLI.';
-      }
-      statusBox.textContent = msg;
-      codeSection.style.display = 'block';
-      document.getElementById('code-value').textContent = code;
-      document.getElementById('state-value').textContent = state;
-      // Clear one-shot OAuth state after successful display
-      if (savedState) localStorage.removeItem('tiktok_oauth_state');
-    } else {
+      statusBox.textContent = 'OAuth error: ' + error +
+        (params.get('error_description') ? ' — ' + params.get('error_description') : '');
+    } else if (!params.get('code')) {
       statusBox.className = 'status error';
-      statusBox.textContent = 'No code or state in URL. Start the OAuth flow from the admin page or your CLI.';
-    }
-
-    function copyAll() {
-      const text = code + '|' + state;
-      navigator.clipboard.writeText(text).then(() => {
-        const btn = document.getElementById('copy-btn');
-        btn.textContent = 'Copied! Paste into terminal';
-        btn.classList.add('copied');
-        setTimeout(() => {
-          btn.textContent = 'Copy code + state';
-          btn.classList.remove('copied');
-        }, 2500);
-      });
+      statusBox.textContent = 'No authorization code in the URL. Start the connection again from Social Studio.';
+    } else {
+      var target = 'http://localhost:' + PORT + '/api/oauth/tiktok/callback' + window.location.search;
+      document.getElementById('handoff-link').href = target;
+      manual.style.display = 'block';
+      // Auto-forward; the manual button covers browsers that block the localhost hop.
+      window.location.replace(target);
     }
   </script>
 </body>
